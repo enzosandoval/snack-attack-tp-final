@@ -216,74 +216,75 @@
 			</div>
 
 			<div class="row row-cols-1 row-cols-md-3 my-5">
-				<div class="col mb-4">
-					<a id="non-effecteed-link" href="#">
-						<div class="card h-100 box__card">
-							<img th:src="@{../img/productos/Lamborghini-LP750-4.jpg}" class="card-img-top" alt="img-categories">
-							<div class="card-body"></div>
-							<div class="card-footer">
-								<h5 class="card-title">Classic Cars</h5>
+					<div class="col mb-4" th:each="p : ${productos}">
+						<a id="non-effecteed-link" href="#">
+							<div class="card h-100 box__card">
+								<img th:src="*{'data:image/png;base64,'+p.image}" class="card-img-top" alt="img-catalogo">
+
+								<div class="card-body"></div>
+								<div class="card-footer">
+									<h5 class="card-title text-center text-muted" th:text="${p.name}">Product name</h5>
+									<h4 class="card-title text-center">$ <strong><span th:text="${p.buyPrice}"></span></strong></h4>
+									<div class="">
+										<ul class="list-inline">
+											<li class="d-flex justify-content-center">
+												<i>
+													<img style="width:15px"
+														src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/
+															AP+gvaeTAAAB50lEQVRIieWVwWoTURSGv3PTqJR0pkarQpHulEZ3LWKSScE30BcQXQRcFHTbpQt9ANfd6cKd1L0INokide1WFLGQlGamUdDJ3OMipoxhhtzqSjyLy8w55/
+															+/e2buMPBfRdTyH0Yt/8FRNOJs3p6rqprO6E6rfhC9cdEZV4CqWU/J1vM7fw+nCQ7apTNWCx+B479SPwrxcKl07evuNK3TBFbNnZQ5wLGkWGi6aKdOoC+ZCYv+B4HFCekX70R/SVaJnQDfOqcW4yRew3AaNQugCyqcE+U8sJKjf6fCJ1F2QbqI7WLpFQvFV7O1vc8AM+PO2A5fIHIRBUYLotPmY0V0DFdQAYE4Gb4HKpB6BwLPpto5hghb4+tDgBeEG6jcA+xfeCsq970g3DiETXZE2/M3VPQJMHtE8++I3vLr0dN0MvMUhR3vClaeA2cdzfcEc90L9luThczvwK9Fb0WN0zkHEDW3s8xzAQBW7GVXgBV7Ka+WCxCk7goQye/NBKgioFVXAKp11WyvzOSgXa4A5Yl0T6Ap0AR6E7WTg3Z52RmQkDTS+0PksbFJxQvCTS8IN1W5gMojIElpAmeAqI7zOxi96tf7N+fWBt1xfb4R7vuN/l2M1oCdkcj934Iq5uB1aTnvuf5p778ZPwH1MaY0TRzDNQAAAABJRU5ErkJggg=="></i>
+												<i>
+													<img style="width:15px"
+														src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/
+															AP+gvaeTAAAB50lEQVRIieWVwWoTURSGv3PTqJR0pkarQpHulEZ3LWKSScE30BcQXQRcFHTbpQt9ANfd6cKd1L0INokide1WFLGQlGamUdDJ3OMipoxhhtzqSjyLy8w55/
+															+/e2buMPBfRdTyH0Yt/8FRNOJs3p6rqprO6E6rfhC9cdEZV4CqWU/J1vM7fw+nCQ7apTNWCx+B479SPwrxcKl07evuNK3TBFbNnZQ5wLGkWGi6aKdOoC+ZCYv+B4HFCekX70R/
+															SVaJnQDfOqcW4yRew3AaNQugCyqcE+U8sJKjf6fCJ1F2QbqI7WLpFQvFV7O1vc8AM+PO2A5fIHIRBUYLotPmY0V0DFdQAYE4Gb4HKpB6BwLPpto5hghb4+tDgBeEG6jcA+
+															xfeCsq970g3DiETXZE2/M3VPQJMHtE8++I3vLr0dN0MvMUhR3vClaeA2cdzfcEc90L9luThczvwK9Fb0WN0zkHEDW3s8xzAQBW7GVXgBV7Ka+WCxCk7goQye/
+															NBKgioFVXAKp11WyvzOSgXa4A5Yl0T6Ap0AR6E7WTg3Z52RmQkDTS+0PksbFJxQvCTS8IN1W5gMojIElpAmeAqI7zOxi96tf7N+fWBt1xfb4R7vuN/l2M1oCdkcj934Iq5uB1aTnvuf5p778ZPwH1MaY0TRzDNQAAAABJRU5ErkJggg=="></i>
+												<i>
+													<img style="width:15px"
+														src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/
+															AP+gvaeTAAAB50lEQVRIieWVwWoTURSGv3PTqJR0pkarQpHulEZ3LWKSScE30BcQXQRcFHTbpQt9ANfd6cKd1L0INokide1WFLGQlGamUdDJ3OMipoxhhtzqSjyLy8w55/
+															+/e2buMPBfRdTyH0Yt/8FRNOJs3p6rqprO6E6rfhC9cdEZV4CqWU/J1vM7fw+nCQ7apTNWCx+B479SPwrxcKl07evuNK3TBFbNnZQ5wLGkWGi6aKdOoC+ZCYv+B4HFCekX70R/
+															SVaJnQDfOqcW4yRew3AaNQugCyqcE+U8sJKjf6fCJ1F2QbqI7WLpFQvFV7O1vc8AM+PO2A5fIHIRBUYLotPmY0V0DFdQAYE4Gb4HKpB6BwLPpto5hghb4+tDgBeEG6jcA+
+															xfeCsq970g3DiETXZE2/M3VPQJMHtE8++I3vLr0dN0MvMUhR3vClaeA2cdzfcEc90L9luThczvwK9Fb0WN0zkHEDW3s8xzAQBW7GVXgBV7Ka+WCxCk7goQye/
+															NBKgioFVXAKp11WyvzOSgXa4A5Yl0T6Ap0AR6E7WTg3Z52RmQkDTS+0PksbFJxQvCTS8IN1W5gMojIElpAmeAqI7zOxi96tf7N+fWBt1xfb4R7vuN/l2M1oCdkcj934Iq5uB1aTnvuf5p778ZPwH1MaY0TRzDNQAAAABJRU5ErkJggg=="></i>
+												<i>
+													<img style="width:15px"
+														src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QA/wD/
+															AP+gvaeTAAAB50lEQVRIieWVwWoTURSGv3PTqJR0pkarQpHulEZ3LWKSScE30BcQXQRcFHTbpQt9ANfd6cKd1L0INokide1WFLGQlGamUdDJ3OMipoxhhtzqSjyLy8w55/
+															+/e2buMPBfRdTyH0Yt/8FRNOJs3p6rqprO6E6rfhC9cdEZV4CqWU/J1vM7fw+nCQ7apTNWCx+B479SPwrxcKl07evuNK3TBFbNnZQ5wLGkWGi6aKdOoC+ZCYv+B4HFCekX70R/
+															SVaJnQDfOqcW4yRew3AaNQugCyqcE+U8sJKjf6fCJ1F2QbqI7WLpFQvFV7O1vc8AM+PO2A5fIHIRBUYLotPmY0V0DFdQAYE4Gb4HKpB6BwLPpto5hghb4+tDgBeEG6jcA+
+															xfeCsq970g3DiETXZE2/M3VPQJMHtE8++I3vLr0dN0MvMUhR3vClaeA2cdzfcEc90L9luThczvwK9Fb0WN0zkHEDW3s8xzAQBW7GVXgBV7Ka+WCxCk7goQye/
+															NBKgioFVXAKp11WyvzOSgXa4A5Yl0T6Ap0AR6E7WTg3Z52RmQkDTS+0PksbFJxQvCTS8IN1W5gMojIElpAmeAqI7zOxi96tf7N+fWBt1xfb4R7vuN/l2M1oCdkcj934Iq5uB1aTnvuf5p778ZPwH1MaY0TRzDNQAAAABJRU5ErkJggg=="></i>
+
+												<i class="mdi mdi-star-half text-warning">
+													<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16" height="16"
+														viewBox="0 0 172 172" style=" fill:#000000;">
+														<g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
+															stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0"
+															font-family="none" font-weight="none" font-size="none" text-anchor="none"
+															style="mix-blend-mode: normal">
+															<path d="M0,172v-172h172v172z" fill="none"></path>
+															<g fill="#f1c40f">
+																<path d="M86,112.91083v-71.69533v-25.14067c-2.7735,0 -5.547,1.505 -6.82983,4.52217l-16.20383,38.23417l-41.42333,
+																		3.51167c-6.536,0.55183 -9.18767,8.70033 -4.22833,12.99317l31.46883,27.262l-9.45283,40.51317c-1.49067,6.3855 5.4395,
+																		11.42367 11.05817,8.03383l35.61117,-21.49283z">
+																</path>
+															</g>
+														</g>
+													</svg>
+												</i>
+											</li>
+										</ul>
+									</div>
+								</div>
 							</div>
-						</div>
-					</a>
+						</a>
+					</div>
 				</div>
-				<div class="col mb-4">
-					<a id="non-effecteed-link" href="#">
-						<div class="card h-100 box__card">
-							<img th:src="@{../img/productos/Lamborghini-LP750-4.jpg}" class="card-img-top" alt="img-categories">
-							<div class="card-body"></div>
-							<div class="card-footer">
-								<h5 class="card-title">Classic Cars</h5>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div class="col mb-4">
-					<a id="non-effecteed-link" href="#">
-						<div class="card h-100 box__card">
-							<img th:src="@{../img/productos/Lamborghini-LP750-4.jpg}" class="card-img-top" alt="img-categories">
-							<div class="card-body"></div>
-							<div class="card-footer">
-								<h5 class="card-title">Classic Cars</h5>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div class="col mb-4">
-					<a id="non-effecteed-link" href="#">
-						<div class="card h-100 box__card">
-							<img th:src="@{../img/productos/Lamborghini-LP750-4.jpg}" class="card-img-top" alt="img-categories">
-							<div class="card-body"></div>
-							<div class="card-footer">
-								<h5 class="card-title">Classic Cars</h5>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div class="col mb-4">
-					<a id="non-effecteed-link" href="#">
-						<div class="card h-100 box__card">
-							<img th:src="@{../img/productos/Lamborghini-LP750-4.jpg}" class="card-img-top" alt="img-categories">
-							<div class="card-body"></div>
-							<div class="card-footer">
-								<h5 class="card-title">Classic Cars</h5>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div class="col mb-4">
-					<a id="non-effecteed-link" href="#">
-						<div class="card h-100 box__card">
-							<img th:src="@{../img/productos/Lamborghini-LP750-4.jpg}" class="card-img-top" alt="img-categories">
-							<div class="card-body"></div>
-							<div class="card-footer">
-								<h5 class="card-title">Classic Cars</h5>
-							</div>
-						</div>
-					</a>
-				</div>
-			</div>
-			<button type="button" class="btn btn-primary btn-lg btn-block mb-4" style="margin-top:-40px;">See More</button>
+
+				<button type="button" class="btn btn-primary btn-lg btn-block mb-4" style="margin-top:-40px;"><a th:href="@{/products/list}" class="text-white">See More</a></button>
 		</section>
 
 	</div>
