@@ -83,4 +83,10 @@ public class EmployeeServiceImp implements IEmployeeService {
 		empleadoRepository.deleteById(id);
 	}
 
+	@Override
+	public List<Employee> findByKeyword(String keyword) {
+		LOGGER.info("METHOD: findByKeyword()");
+		return empleadoRepository.findByKeyword(keyword);
+	}
+
 }
