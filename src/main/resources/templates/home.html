@@ -217,7 +217,7 @@
 
 			<div class="row row-cols-1 row-cols-md-3 my-5">
 					<div class="col mb-4" th:each="p : ${productos}">
-						<a id="non-effecteed-link" href="#">
+						<a id="non-effecteed-link" th:href="@{products/details/{id}(id=${p.id})}">
 							<div class="card h-100 box__card">
 								<img th:src="*{'data:image/png;base64,'+p.image}" class="card-img-top" alt="img-catalogo">
 
@@ -284,7 +284,7 @@
 					</div>
 				</div>
 
-				<button type="button" class="btn btn-primary btn-lg btn-block mb-4" style="margin-top:-40px;"><a th:href="@{/products/list}" class="text-white">See More</a></button>
+				<a class="btn btn-primary btn-lg btn-block mb-4 text-white" th:href="@{/products/list}"  style="margin-top:-40px;">See More</a>
 		</section>
 
 	</div>
