@@ -26,4 +26,5 @@ public interface IOrderService {
 
 	public void borrar(long id);
 	
+	public List<Order> findByKeyword(String keyword);
 }
