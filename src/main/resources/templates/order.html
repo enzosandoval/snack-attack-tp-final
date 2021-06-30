@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Office</title>
+<title>Order</title>
 <link rel="stylesheet"
 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 <link rel="stylesheet"
@@ -22,24 +22,24 @@
 					<div class="card-wrapper col-md-6 col-sm-8">
 						<div class="card fat">
 							<div class="card-body">
-								<h1 class="text-center">New	Order</h1>							
+								<h1 class="text-center">New Order</h1>
 								<br>
 								<form th:action="@{/order/save}" th:object="${order}"
 									method="POST">
-									 <input type="hidden" th:field="*{number}" /> 
+									<input type="hidden" th:field="*{number}" />
+									<input type="hidden" th:field="*{customer}" />
 									<div class="form-group">
-									
 										<label for="orderDate">Order Date</label>
 										<input type="date" class="form-control" id="orderDate"
 											placeholder=" Order Date" th:field="*{orderDate}">
 										<div class="form-text text-danger"
-											th:if="${#fields.hasErrors('orderDate')}" th:errors="*{orderDate}"></div>
+											th:if="${#fields.hasErrors('orderDate')}"
+											th:errors="*{orderDate}"></div>
 									</div>
 									<div class="form-group">
 										<label for="latitud">Required Date</label>
 										<input type="date" class="form-control" id="requiredDate"
 											placeholder="Required Date" th:field="*{requiredDate}">
-											
 										<div class="form-text text-danger"
 											th:if="${#fields.hasErrors('requiredDate')}"
 											th:errors="*{requiredDate}"></div>
@@ -48,27 +48,32 @@
 										<label for="shippedDate">Shipped Date</label>
 										<input type="date" class="form-control" id="shippedDate"
 											placeholder="Shipped Date" th:field="*{shippedDate}">
-											
 										<div class="form-text text-danger"
 											th:if="${#fields.hasErrors('shippedDate')}"
 											th:errors="*{shippedDate}"></div>
 									</div>
 									<div class="form-group">
 										<label for="status">Status</label>
-										<input type="text" class="form-control" id="status"
-											placeholder="Status" th:field="*{status}">
+										<select class="custom-select" id="status" th:field="*{status}">
+											<option value="" selected>Select status...</option>
+											<option value="Shipped">Shipped</option>
+											<option value="Cancelled">Cancelled</option>
+											<option value="On Hold">On Hold</option>
+											<option value="Resolved">Resolved</option>
+											<option value="In Process">In Process</option>
+											<option value="Disputed">Disputed</option>
+										</select>
 										<div class="form-text text-danger"
 											th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></div>
 									</div>
-									
 									<div class="form-group">
 										<label for="description">Comments</label>
 										<textarea class="form-control" id="comments" rows="3"
 											th:field="*{comments}"></textarea>
-											<div class="form-text text-danger"
-											th:if="${#fields.hasErrors('comments')}" th:errors="*{comments}"></div>
+										<div class="form-text text-danger"
+											th:if="${#fields.hasErrors('comments')}"
+											th:errors="*{comments}"></div>
 									</div>
-									
 									<!--  <div class="form-group">
 										<label for="address1">Customer</label>
 										<input type="number" class="form-control" id="customer"
@@ -77,29 +82,32 @@
 											th:if="${#fields.hasErrors('customer.number')}"
 											th:errors="*{customer.number}"></div>
 									</div>	-->
-									
 									<div class="form-group">
 										<label for="productLines">Customer</label>
-										<select id="customer" th:field="*{customer.number}" class="form-control">
+										<select id="customer" th:field="*{customer.number}"
+											class="form-control">
 											<option th:each="customer : ${customers}"
-												th:value="${customer.number}"
-												th:text="${customer.number}"></option>
+												th:value="${customer.number}" th:text="${customer.name}"></option>
 										</select>
 										<div class="form-text text-danger"
-											th:if="${#fields.hasErrors('customer.number')}" th:errors="*{customer.number}"></div>
+											th:if="${#fields.hasErrors('customer.number')}"
+											th:errors="*{customer.number}"></div>
 									</div>
-									
-									
-											
-									<input type="hidden" th:field="*{orderDetailsList}" />		
-											
+									<div th:object="${product}">
+										<div class="form-group">
+											<label for="productLines">Product</label>
+											<select id="product" th:field="*{id}" class="form-control">
+												<option th:each="producto : ${productos}"
+													th:value="${producto.id}" th:text="${producto.name}"></option>
+											</select>
+										</div>
+									</div>
 									<!-- </div>
 									<div class="form-group">
 										<label for="orderDetails">Order Details</label>
 										<input type="number" class="form-control" id="orderDetails"
 											placeholder="Order Details" th:field="*{orderDetailsList.id}">
 									</div> -->
-									
 									<div class="form-group m-0">
 										<button type="submit" class="btn confirm-button">Save</button>
 										<a th:href="@{/orders}" class="btn cancel-button" id="delRef">Cancel
