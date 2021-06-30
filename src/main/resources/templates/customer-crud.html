@@ -14,9 +14,7 @@
 </head>
 <!-- style="background-color: #f5f7fa;" -->
 <body>
-	<!-- <div th:replace="layout/header :: header"></div> -->
 	<div th:replace="layout/nav-admin :: nav-admin"></div>
-	<!-- style="text-align: justify;" -->
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-xs-12" style="height: 30px;"></div>
@@ -34,9 +32,84 @@
 						</div>
 					</div>
 				</div>
+				<!-- FIN Título de la página de inicio -->
 				<div class="row mx-2 rounded bg-white shadow page-content__wrapper">
 					<a th:href="@{/customer/new}" class="btn btn-success ml-3 mt-3"
-						id="delRef"> Add Customer <i class="fa fa-plus"></i></a>
+						id="delRef"> Add Customer <i class="fa fa-plus"></i>
+					</a>
+					<!-- BARRA DE BUSQUEDA 🔍 -->
+					<div class="col-7 col-md-5 ml-3 mt-3">
+						<form th:action="@{/customers}" method="get" class="d-flex">
+							<input class="form-control" type="text" id="txtSearch"
+								name="keyword" th:value="${keyword}" placeholder="Search"
+								aria-label="Search" required>
+							<button type="submit" class="btn btn-primary">
+								<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+									width="24" height="24" viewBox="0 0 172 172"
+									style="fill: #000000;">
+									<g fill="none" fill-rule="nonzero" stroke="none"
+										stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
+										stroke-miterlimit="10" stroke-dasharray=""
+										stroke-dashoffset="0" font-family="none" font-weight="none"
+										font-size="none" text-anchor="none"
+										style="mix-blend-mode: normal">
+										<path d="M0,172v-172h172v172z" fill="none"></path>
+										<g fill="#ECF0F1">
+											<path
+										d="M64.5,14.33333c-27.6214,0 -50.16667,22.54527 -50.16667,50.16667c0,27.6214 22.54527,
+											50.16667 50.16667,50.16667c12.52732,0 23.97256,-4.67249 32.7819,-12.31771l3.05143,
+											3.05143v9.26628l43,43l14.33333,-14.33333l-43,-43h-9.26628l-3.05143,
+											-3.05143c7.64521,-8.80934 12.31771,-20.25458 12.31771,-32.7819c0,-27.6214 -22.54527,-50.16667 -50.16667,
+											-50.16667zM64.5,28.66667c19.87509,0 35.83333,15.95824 35.83333,35.83333c0,19.87509 -15.95825,35.83333 -35.
+											83333,35.83333c-19.87509,0 -35.83333,-15.95825 -35.83333,-35.83333c0,-19.87509 15.95824,-35.83333 35.83333,
+											-35.83333z">
+											</path>
+										</g>
+									</g>
+								</svg>
+							</button>
+							<button type="button" value="clear" onclick="clearfilter()"
+								class="btn btn-secondary">
+								<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+									width="24" height="24" viewBox="0 0 172 172"
+									style="fill: #000000;">
+									<g fill="none" fill-rule="nonzero" stroke="none"
+										stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter"
+										stroke-miterlimit="10" stroke-dasharray=""
+										stroke-dashoffset="0" font-family="none" font-weight="none"
+										font-size="none" text-anchor="none"
+										style="mix-blend-mode: normal">
+										<path d="M0,172v-172h172v172z" fill="none"></path>
+										<g fill="#ECF0F1">
+											<path
+										d="M161.66346,0.41346c-1.49879,0.18089 -2.53245,0.80108 -3.10096,1.86058l-26.04808,48.78846l20.25962,
+												9.09615l18.8125,-51.88942c0.82692,-2.27404 -1.26622,-5.27163 -4.75481,-6.82212c-1.73137,-0.77524 -3.66947,
+												-1.21454 -5.16827,-1.03365zM9.92308,26.46154c-5.47837,0 -9.92308,4.44471 -9.92308,9.92308c0,5.47837 4.44471,
+												9.92308 9.92308,9.92308c5.47837,0 9.92308,-4.44471 9.92308,-9.92308c0,-5.47837 -4.44471,-9.92308 -9.92308,
+												-9.92308zM39.69231,33.07692c-3.64363,0 -6.61538,2.97176 -6.61538,6.61538c0,3.64363 2.97176,6.61538 6.61538,
+												6.61538c3.64363,0 6.61538,-2.97176 6.61538,-6.61538c0,-3.64363 -2.97176,-6.61538 -6.61538,-6.61538zM118.45673,
+												56.4375c-8.0625,-0.15504 -15.94411,4.57392 -19.43269,12.40385l63.05288,27.90865c4.65144,-10.4399 -0.12921,
+												-22.66286 -10.54327,-27.28846c-2.22235,-0.98197 -22.99879,-10.18149 -25.22115,-11.16346c-2.60997,-1.16286 -5.16827,
+												-1.80889 -7.85577,-1.86058zM36.38462,59.53846c-9.12199,0 -16.53846,7.41647 -16.53846,16.53846c0,9.12199 7.41647,
+												16.53846 16.53846,16.53846c9.12199,0 16.53846,-7.41647 16.53846,-16.53846c0,-9.12199 -7.41647,-16.53846 -16.53846,
+												-16.53846zM93.64904,78.55769c-7.13221,13.7476 -21.42247,22.01683 -35.55769,26.66827c-7.05469,2.32572 -13.92849,
+												3.77284 -19.43269,4.54808c-5.50421,0.77524 -10.10397,0.87861 -10.95673,0.82692c-2.60997,-0.18089 -5.09074,
+												1.21454 -6.30529,3.56611c-1.21454,2.32572 -0.93029,5.14242 0.72356,7.18389c39.40805,48.63342 99.85096,
+												50.64904 99.85096,50.64904c2.09315,0.07753 4.08294,-0.85276 5.375,-2.48077c0,0 17.57212,-21.5 30.80288,
+												-61.8125l-12.61058,-4.13462c-11.34435,34.54988 -24.00661,51.34676 -26.66827,54.78365c-3.02344,-0.23257 -10.23317,
+												-1.03365 -19.63942,-3.51442c2.9976,-3.30769 8.78606,-10.49158 14.88462,-24.39423c-17.28786,15.94411 -27.52103,
+												18.45072 -32.04327,18.60577c-5.19411,-2.11899 -10.38822,-4.65144 -15.91827,-7.85577c2.6875,-2.45493 6.71875,
+												-6.95132 11.37019,-15.50481c-6.22776,6.51202 -14.41947,9.07031 -19.84615,10.12981c-5.45253,-3.77283 -10.87921,
+												-8.11418 -16.125,-13.23077c5.99519,-0.8786 13.1274,-2.27404 20.67308,-4.75481c15.99579,-5.27163 33.77464,
+												-14.88462 43.20673,-33.07692z">
+											</path>
+										</g>
+									</g>
+								</svg>
+							</button>
+						</form>
+					</div>
+					<!-- FIN BARRA DE BUSQUEDA 🔍 -->
 					<div class="col-12" style="overflow-x: auto;">
 						<table class="table table-hover content_table">
 							<thead>
@@ -132,6 +205,13 @@
 			</div>
 		</div>
 	</div>
+	<!--  Funcion para limpiar 🧹 la barra de Busqueda 🔍 -->
+	<script>
+		function clearfilter(){ 
+		window.location = '/customers';
+		}
+	</script>
+	<!-- Fin Funcion para limpiar 🧹 la barra de Busqueda 🔍 -->
 </body>
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>

@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,7 +46,7 @@ public class EmployeeController {
 	private IOfficeService officeService;
 
 	@GetMapping("/employees")
-	public String getEmployeePage(@RequestParam Map<String, Object> params, Model model) {
+	public String getEmployeePage(@RequestParam Map<String, Object> params, Model model, @Param("keyword") String keyword) {
 		int page = params.get("page") != null ? Integer.valueOf(params.get("page").toString()) - 1 : 0;
 		PageRequest pageRequest = PageRequest.of(page, 10);
 		Page<Employee> pageEmployees = employeeService.findAll(pageRequest);
@@ -59,6 +60,13 @@ public class EmployeeController {
 		model.addAttribute("next", page + 2);
 		model.addAttribute("prev", page);
 		model.addAttribute("last", totalPage);
+
+		// ✨ Barra de Busqyeda 🔍
+		if (keyword != null) {
+			List<Employee> listEmployees = employeeService.findByKeyword(keyword);
+			model.addAttribute("employees", listEmployees);
+			model.addAttribute("keyword", keyword); // Para que "keyword" siga apareciendo en la Barra de Busqueda
+		}
 		return "employee-crud";
 	}
 
