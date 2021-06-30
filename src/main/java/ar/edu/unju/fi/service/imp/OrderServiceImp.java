@@ -80,4 +80,9 @@ public class OrderServiceImp implements IOrderService{
 		orderRepository.deleteById(id);
 	}
 
+	@Override
+	public List<Order> findByKeyword(String keyword) {
+		LOGGER.info("METHOD: findByKeyword()");
+		return orderRepository.findByKeyword(keyword);
+	}
 }
