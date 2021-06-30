@@ -26,5 +26,8 @@ public interface IEmployeeService {
 
 	public void borrar(Long id);
 
+
+
 	public List<Employee> findByKeyword(String keyword);
+
 }

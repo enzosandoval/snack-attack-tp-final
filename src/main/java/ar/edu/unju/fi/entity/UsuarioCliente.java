@@ -22,25 +22,4 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("cliente")
 public class UsuarioCliente extends Usuario {
 
-	@OneToOne(mappedBy = "usuarioCliente", fetch = FetchType.LAZY)
-	private Customer customer;
-
-	public UsuarioCliente() {
-		super();
-	}
-
-	/**
-	 * @return the customer
-	 */
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	/**
-	 * @param customer the customer to set
-	 */
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
 }

@@ -19,9 +19,13 @@ import ar.edu.unju.fi.entity.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
+
+	public Employee findByUsuarioEmpleadoUsername(String username);
+
   // ✨ Consulta para la Barra de Busqueda 🔍
   @Query(value = "SELECT * FROM employees e WHERE " + 
   "CONCAT(e.employeeNumber, e.lastName, e.firstName, e.jobTitle)" + 
   " LIKE %:keyword%", nativeQuery = true)
   List<Employee> findByKeyword(@Param("keyword") String keyword);
+
 }

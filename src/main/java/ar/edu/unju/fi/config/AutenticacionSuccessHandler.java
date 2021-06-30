@@ -47,7 +47,7 @@ public class AutenticacionSuccessHandler implements AuthenticationSuccessHandler
 		if (vendedor) {
 			redirectStrategy.sendRedirect(request, response, "/products");
 		} else if (administrador) {
-			redirectStrategy.sendRedirect(request, response, "/products");
+			redirectStrategy.sendRedirect(request, response, "/admin");
 		} else {
 			throw new IllegalStateException();
 		}

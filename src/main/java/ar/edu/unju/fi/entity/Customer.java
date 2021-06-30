@@ -93,11 +93,6 @@ public class Customer {
 	@JoinColumn(name = "salesRepEmployeeNumber")
 	private Employee salesRepresentative;
 
-	@Valid
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "userNumber")
-	private UsuarioCliente usuarioCliente;
-
 	public Customer() {
 	}
 
@@ -283,19 +278,7 @@ public class Customer {
 		this.salesRepresentative = salesRepresentative;
 	}
 
-	/**
-	 * @return the usuarioCliente
-	 */
-	public UsuarioCliente getUsuarioCliente() {
-		return usuarioCliente;
-	}
 
-	/**
-	 * @param usuarioCliente the usuarioCliente to set
-	 */
-	public void setUsuarioCliente(UsuarioCliente usuarioCliente) {
-		this.usuarioCliente = usuarioCliente;
-	}
 
 	@Override
 	public String toString() {
@@ -303,7 +286,7 @@ public class Customer {
 				+ ", contactLastName=" + contactLastName + ", phone=" + phone + ", addressLine1=" + addressLine1
 				+ ", addressLine2=" + addressLine2 + ", city=" + city + ", state=" + state + ", postalCode="
 				+ postalCode + ", country=" + country + ", creditLimit=" + creditLimit + ", salesRepresentative="
-				+ salesRepresentative + ", usuarioCliente=" + usuarioCliente + "]";
+				+ salesRepresentative + "]";
 	}
 
 }
