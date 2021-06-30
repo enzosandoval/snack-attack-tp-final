@@ -79,4 +79,9 @@ public class CustomerServiceImp implements ICustomerService {
 		customerRepository.deleteById(id);
 	}
 
+	@Override
+	public List<Customer> findByKeyword(String keyword) {
+		LOGGER.info("METHOD: findByKeyword()");
+		return customerRepository.findByKeyword(keyword);
+	}
 }

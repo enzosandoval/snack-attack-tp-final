@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,7 +47,7 @@ public class CustomerController {
 	private IEmployeeService employeeService;
 
 	@GetMapping("/customers")
-	public String getCustomersPage(@RequestParam Map<String, Object> params, Model model) {
+	public String getCustomersPage(@RequestParam Map<String, Object> params, Model model, @Param("keyword") String keyword) {
 		int page = params.get("page") != null ? Integer.valueOf(params.get("page").toString()) - 1 : 0;
 		PageRequest pageRequest = PageRequest.of(page, 10);
 		Page<Customer> pageCustomers = customerService.findAll(pageRequest);
@@ -60,6 +61,13 @@ public class CustomerController {
 		model.addAttribute("next", page + 2);
 		model.addAttribute("prev", page);
 		model.addAttribute("last", totalPage);
+
+		// ✨ Barra de Busqyeda 🔍
+		if (keyword != null) {
+			List<Customer> listCustomers = customerService.findByKeyword(keyword);
+			model.addAttribute("customers", listCustomers);
+			model.addAttribute("keyword", keyword); // Para que "keyword" siga apareciendo en la Barra de Busqueda
+		}
 		return "customer-crud";
 	}
 

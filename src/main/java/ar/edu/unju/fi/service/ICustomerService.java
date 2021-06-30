@@ -26,4 +26,5 @@ public interface ICustomerService {
 
 	public void borrar(Long id);
 	
+	public List<Customer> findByKeyword(String keyword);
 }
