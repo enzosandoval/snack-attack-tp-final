@@ -23,7 +23,12 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String getHomePage(Model model) throws Exception {
+		// ✨ Nombre de las Categorias 👇
 		model.addAttribute("productLines", productLinesService.obtenerLineasDeProductos());
+
+		// ✨ Mini Catalogo 👇
+		String id = "Trucks and Buses";
+		model.addAttribute("productos", productLinesService.buscarLineaDeProducto(id).getProductos());
 		return "home";
 	}
 
