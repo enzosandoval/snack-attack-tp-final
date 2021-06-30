@@ -62,7 +62,7 @@
 									<td th:text="${order.status}"></td>
 									<td th:text="${order.customer.number}"></td>
 									<td><a
-										th:href="@{order/order-details/{id}(id=${order.number})}"
+										th:href="@{/order/order-details/{id}(id=${order.number})}"
 										class="btn btn-warning">Details <i class="fa fa-edit"></i></a></td>
 									
 								</tr>
@@ -76,14 +76,14 @@
 									<ul class="pagination justify-content-center">
 										<li class="page-item"
 											th:classappend="${prev == 0 ? 'disabled': ''}"><a
-											class="page-link" th:href="@{|/products/?page=${prev}|}">Previous</a></li>
+											class="page-link" th:href="@{|/orders/?page=${prev}|}">Previous</a></li>
 										<li class="page-item" th:each="page : ${pages}"
 											th:classappend="${current == page ? 'active': ''}"><a
-											class="page-link" th:href="@{|/products/?page=${page}|}"
+											class="page-link" th:href="@{|/orders/?page=${page}|}"
 											th:text="${page}"></a></li>
 										<li class="page-item"
 											th:classappend="${current == last ? 'disabled': ''}"><a
-											class="page-link" th:href="@{|/products/?page=${next}|}">Next</a></li>
+											class="page-link" th:href="@{|/orders/?page=${next}|}">Next</a></li>
 									</ul>
 								</nav>
 							</div>

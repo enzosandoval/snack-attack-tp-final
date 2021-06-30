@@ -28,9 +28,8 @@
 									Customer</h1>
 								<br>
 								<form th:action="@{/customer/save}" th:object="${customer}"
-									method="POST" enctype="multipart/form-data">
+									method="POST">
 									<input type="hidden" th:field="*{number}" />
-									<input type="hidden" th:field="*{usuarioCliente.id}" />
 									<div class="form-group">
 										<label for="name">Name</label>
 										<input type="text" class="form-control" id="name"
@@ -127,41 +126,9 @@
 									</div>
 									<!-- In this case the logged user
 									 -->
-									<input type="hidden" th:field="*{salesRepresentative}" />
 									
-									<!-- For create or edit client user -->
-									<div class="form-group">
-										<label for="username">Username</label>
-										<input type="text" class="form-control" id="username"
-											placeholder="Username" th:field="*{usuarioCliente.username}">
-										<div class="form-text text-danger"
-											th:if="${#fields.hasErrors('usuarioCliente.username')}"
-											th:errors="*{usuarioCliente.username}"></div>
-									</div>
-									<div class="form-group">
-										<label for="password">Password</label>
-										<input th:if="${customer.usuarioCliente.id == 0}"
-											type="password" class="form-control" id="password"
-											placeholder="Password" th:field="*{usuarioCliente.password}">
-										<input th:if="${customer.usuarioCliente.id != 0}"
-											type="text" class="form-control" id="password"
-											placeholder="Password" th:field="*{usuarioCliente.password}">
-										<div class="form-text text-danger"
-											th:if="${#fields.hasErrors('usuarioCliente.password')}"
-											th:errors="*{usuarioCliente.password}"></div>
-									</div>
-									<div class="form-group">
-										<label for="file">Image </label>
-										<input type="hidden" class="form-control" id="imagen"
-											th:name="image" th:value="*{usuarioCliente.image}" />
-										<input type="file" name="file" class="form-control-file"
-											accept="image/x-png,image/gif,image/jpeg,image/png,image/jpeg"
-											onchange="loadFile(event)">
-										<img th:if="${customer.usuarioCliente.image == ''}"
-											id="output"
-											src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII="
-											style="padding-top: 2px; width: 146px;" />
-									</div>
+									
+									
 									<div class="form-group m-0">
 										<button type="submit" class="btn confirm-button">Save</button>
 										<a th:href="@{/customers}" class="btn cancel-button"
@@ -175,12 +142,6 @@
 			</div>
 		</section>
 	</div>
-	<script type="text/javascript">
-		var loadFile = function(event) {
-		var image = document.getElementById('output');
-		image.src = URL.createObjectURL(event.target.files[0]);
-	};
-	</script>
 </body>
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>

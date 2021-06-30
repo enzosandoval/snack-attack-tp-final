@@ -13,4 +13,5 @@ import ar.edu.unju.fi.entity.Employee;
  */
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
+	public Employee findByUsuarioEmpleadoUsername(String username);
 }

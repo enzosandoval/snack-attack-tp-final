@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ar.edu.unju.fi.entity.Customer;
 import ar.edu.unju.fi.entity.Order;
+import ar.edu.unju.fi.entity.OrderDetails;
 import ar.edu.unju.fi.service.ICustomerService;
 
 import ar.edu.unju.fi.service.IOrderService;
@@ -35,9 +36,6 @@ import ar.edu.unju.fi.service.IOrderService;
  */
 @Controller
 public class OrderController {
-
-	@Autowired
-	Customer customer;
 	
 	@Autowired
 	private IOrderService orderService;
@@ -46,17 +44,28 @@ public class OrderController {
 	private ICustomerService clienteService;
 	
 	@Autowired
-	Order order;
+	public Order order;
+	
+	@Autowired
+	public Customer customer;
+	
+	@Autowired
+	public OrderDetails orderDetails;
+	
+	@Autowired
+	public List<OrderDetails> listaOrderDetails;;
 	
 	@GetMapping("/new-order")
 	public String getNewOrderPage(Model model) throws Exception {
 		order = new Order();
+		customer = new Customer();
 		model.addAttribute("order", order);
 		model.addAttribute("customers", clienteService.obtenerClientes());
 		return "order";
 	
 	}
 	
+	//OK
 	@GetMapping("/orders")
 	public String getEmployeePage(@RequestParam Map<String, Object> params, Model model) {
 		int page = params.get("page") != null ? Integer.valueOf(params.get("page").toString()) - 1 : 0;
@@ -92,6 +101,7 @@ public class OrderController {
 		}
 	}
 
+	//Dudoso
 	@GetMapping("/last-order")
 	public String getLastOrderPage(Model model) {
 		Order lOrder = new Order();
@@ -102,8 +112,10 @@ public class OrderController {
 	}
 	
 
-	@GetMapping("order/order-details/{id}")
+	//OK
+	@GetMapping("/order/order-details/{id}")
 	public String getProductDetail(@PathVariable(value = "id")long id, Model model) throws Exception {
+		System.out.println("Hola: " + orderService.buscarOrden(id));
 		model.addAttribute("order", orderService.buscarOrden(id));
 		return "order-details";
 	}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>orders</title>
+<title>Order Details</title>
 <link rel="stylesheet"
 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{/css/styles.css}">
@@ -15,86 +15,46 @@
 </head>
 <body>
 	<!-- <div th:replace="layout/header :: header"></div> -->
-	<!-- style="text-align: justify;" -->
 	<div th:replace="layout/nav-admin :: nav-admin"></div>
 	<div class="container-fluid">
 		<div class="row">
 			<div th:replace="layout/nav-admin-left :: nav-admin-left"></div>
 			<div class="col-md-9 ml-sm-auto col-lg-10">
-				<div class="col-xs-12" style="height: 20px;"></div>
-				<!-- Título de la página de inicio -->
-				<div class="page-title-box">
-					<div class="container-fluid ">
-						<div class="row align-items-center">
-							<div class="col-sm-6">
-								<div class="page-title">
-									<h2 class="text-white pt-5 pt-md-0">orderS</h2>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- FIN Título de la página de inicio -->
-				<div
-					class="row mx-2 mb-4 rounded bg-white shadow page-content__wrapper">
-					
-					<div class="col-12" style="overflow-x: auto;">
-						<table class="table table-hover content_table">
-							<thead>
-								<tr class="text-center">
-									<th style="width: 6%">Order Number</th>
-									<th style="width: 24%">Product</th>
-									<th>Quantity</th>
-									<th>Price Each</th>
-									<!--  <th>Order Line Number</th>		-->							
-								</tr>
-							</thead>
-							<tbody>
-							
-						          <!--  	<a
-										th:href=
-										class="btn btn-warning">Edit <i class="fa fa-edit"></i></a>-->
-							
-								<tr th:object="${order}" class="text-center">
-									<td th:text="${order.number}"></td>
-									<!--<td th:text="${order.orderDetails.id.product.id}"></td>-->
-								  	<td th:text="${order.orderDetailsList.quantityOrdered}"></td>
-									<td
-										th:text="${order.orderDetailsList.priceEach}"></td>
-									<td th:text="${order.orderDetailsList.orderLineNumber}"></td>
-								
-									
-								
-									
-								</tr>
-							</tbody>
-						</table>
-						<!-- Pagination -->
-						<div class="row">
-							<div class="col-md-2"></div>
-							<div class="col-md-8">
-								<nav aria-label="Pagination">
-									<ul class="pagination justify-content-center">
-										<li class="page-item"
-											th:classappend="${prev == 0 ? 'disabled': ''}"><a
-											class="page-link" th:href="@{|/products/?page=${prev}|}">Previous</a></li>
-										<li class="page-item" th:each="page : ${pages}"
-											th:classappend="${current == page ? 'active': ''}"><a
-											class="page-link" th:href="@{|/products/?page=${page}|}"
-											th:text="${page}"></a></li>
-										<li class="page-item"
-											th:classappend="${current == last ? 'disabled': ''}"><a
-											class="page-link" th:href="@{|/products/?page=${next}|}">Next</a></li>
-									</ul>
-								</nav>
-							</div>
-							<div class="col-md-2"></div>
-						</div>
-					</div>
+				<div style="height: 160px;"></div>
+				<h5>Order Details</h5>
+				<label> Order Number: </label>
+				<span th:text="${order.number}"></span><br>
+				<label> Order Date: </label>
+				<span th:text="${order.orderDate}"></span><br>
+				<label>Required Date: </label>
+				<span th:text="${order.requiredDate}"></span><br>
+				<label>Shiped Date: </label>
+				<span th:text="${order.shippedDate}"></span><br>
+				<label>Status: </label>
+				<span th:text="${order.status}"></span><br>
+				<label>Comments: </label>
+				<span th:text="${order.comments}"></span><br>
+				<br>
+				<br>
+				<p>Order Details List</p>
+				<div th:if="${ not#lists.isEmpty(order.orderDetailsList)}">
+					<table class="table table-hover content_table">
+						<tr class="text-center">
+							<th>Number</th>
+							<th>Quantity Ordered</th>
+							<th>Price Each</th>
+							<th>Order Line Number</th>
+						</tr>
+						<tr class="text-center"
+							th:each="orderDetail, i : ${order.orderDetailsList}">
+							<td th:text="${i.index}"></td>
+							<td th:text="${orderDetail.quantityOrdered}"></td>
+							<td th:text="'$ '+${orderDetail.priceEach}"></td>
+							<td th:text="${orderDetail.orderLineNumber}"></td>
+						</tr>
+					</table>
 				</div>
 			</div>
-		</div>
-	</div>
 </body>
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>

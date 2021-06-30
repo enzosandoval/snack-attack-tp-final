@@ -16,13 +16,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
@@ -41,19 +41,19 @@ public class Order {
 	@Column(name = "orderNumber", unique = true, nullable = false, updatable = false)
 	private Long number;
 
-	@NotNull(message="The Order Date must not be null")
+	@NotNull(message = "The Order Date must not be null")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@PastOrPresent(message="The Order Date must be a date  in the past or in the present. ")
+	@PastOrPresent(message = "The Order Date must be a date  in the past or in the present. ")
 	@Column(nullable = false)
 	private LocalDate orderDate;
 
-	@NotNull(message="The Required Date must not be null")
+	@NotNull(message = "The Required Date must not be null")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Future(message="The Required Date must be a date or time in the future. ")
+	@Future(message = "The Required Date must be a date or time in the future. ")
 	@Column(nullable = false)
 	private LocalDate requiredDate;
 
-	@Future(message="If you enter shipped date, it must be a future date .")
+	@Future(message = "If you enter shipped date, it must be a future date .")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column
 	private LocalDate shippedDate;
@@ -66,7 +66,7 @@ public class Order {
 	@Column
 	private String comments;
 
-	@Valid
+	@Autowired
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customerNumber")
 	private Customer customer;
@@ -83,14 +83,14 @@ public class Order {
 	public Long getNumber() {
 		return number;
 	}
-	
+
 	/**
 	 * @param number the number to set
 	 */
 	public void setNumber(Long number) {
 		this.number = number;
-	
-}
+
+	}
 
 	/**
 	 * @return the orderDate
@@ -193,8 +193,8 @@ public class Order {
 	@Override
 	public String toString() {
 		return "Order [number=" + number + ", orderDate=" + orderDate + ", requiredDate=" + requiredDate
-				+ ", shippedDate=" + shippedDate + ", status=" + status + ", comments=" + comments + ", customer="
-				+ customer + ", orderDetailsList=" + orderDetailsList + "]";
+				+ ", shippedDate=" + shippedDate + ", status=" + status + ", comments=" + comments
+				+ ", orderDetailsList=" + orderDetailsList + "]";
 	}
 
 }
