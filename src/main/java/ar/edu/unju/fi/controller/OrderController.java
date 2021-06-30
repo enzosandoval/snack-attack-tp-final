@@ -26,9 +26,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ar.edu.unju.fi.entity.Customer;
 import ar.edu.unju.fi.entity.Order;
 import ar.edu.unju.fi.entity.OrderDetails;
+import ar.edu.unju.fi.entity.OrderDetailsId;
+import ar.edu.unju.fi.entity.Product;
+import ar.edu.unju.fi.repository.OrderDetailsRepository;
 import ar.edu.unju.fi.service.ICustomerService;
 
 import ar.edu.unju.fi.service.IOrderService;
+import ar.edu.unju.fi.service.IProductService;
 
 /**
  * @author Enzo Sandoval
@@ -36,36 +40,49 @@ import ar.edu.unju.fi.service.IOrderService;
  */
 @Controller
 public class OrderController {
-	
+
 	@Autowired
 	private IOrderService orderService;
-	
+
 	@Autowired
 	private ICustomerService clienteService;
-	
+
 	@Autowired
 	public Order order;
-	
+
 	@Autowired
 	public Customer customer;
-	
+
 	@Autowired
 	public OrderDetails orderDetails;
+
+	@Autowired
+	public List<OrderDetails> listaOrderDetails;
 	
 	@Autowired
-	public List<OrderDetails> listaOrderDetails;;
+	public Product product;
 	
+	@Autowired
+	public IProductService productService;
+	
+	@Autowired
+	public OrderDetailsRepository orderRepo;
+
 	@GetMapping("/new-order")
 	public String getNewOrderPage(Model model) throws Exception {
 		order = new Order();
 		customer = new Customer();
+		product = new Product();
 		model.addAttribute("order", order);
+		orderDetails = new OrderDetails();
+		model.addAttribute("product", product);
+		model.addAttribute("productos", productService.obtenerProductos());
 		model.addAttribute("customers", clienteService.obtenerClientes());
 		return "order";
-	
+
 	}
-	
-	//OK
+
+	// OK
 	@GetMapping("/orders")
 	public String getEmployeePage(@RequestParam Map<String, Object> params, Model model) {
 		int page = params.get("page") != null ? Integer.valueOf(params.get("page").toString()) - 1 : 0;
@@ -83,48 +100,52 @@ public class OrderController {
 		model.addAttribute("last", totalPage);
 		return "order-crud";
 	}
-	
-	
+
 	@PostMapping(value = "/order/save")
-	public String getSaveOrderAndRedirect(@Valid @ModelAttribute("order") Order order, BindingResult result,
-			Model model) throws Exception {
+	public String getSaveOrderAndRedirect(@Valid @ModelAttribute("order") Order order, Model model,
+			BindingResult result) throws Exception {
 		if (result.hasErrors()) {
-			order.setNumber(null);
+//			order.setNumber(null);
 			model.addAttribute("order", order);
-			model.addAttribute("customer", clienteService.obtenerClientes());
-			return "/";
+			model.addAttribute("customers", clienteService.obtenerClientes());
+
+			return "order";
 		} else {
 			customer = clienteService.buscarCliente(order.getCustomer().getNumber());
 			order.setCustomer(customer);
 			orderService.guardar(order);
-			return "redirect:/last-order";
+			product=productService.buscarProducto("S10_1678");
+			OrderDetailsId orderDetailsID = new OrderDetailsId(order, product);
+			orderDetails.setId(orderDetailsID);
+			orderDetails.setQuantityOrdered(1);
+			orderDetails.setPriceEach(product.getMSRP());
+			orderDetails.setOrderLineNumber(5);
+			orderRepo.save(orderDetails);
+			return "redirect:/orders";
 		}
 	}
 
-	//Dudoso
+	// Dudoso
 	@GetMapping("/last-order")
 	public String getLastOrderPage(Model model) {
 		Order lOrder = new Order();
 		List<Order> orders = orderService.obtenerOrdenes();
-	    lOrder = orders.get(orders.size()-1);
+		lOrder = orders.get(orders.size() - 1);
 		model.addAttribute("last", lOrder);
 		return "last-order";
 	}
-	
 
-	//OK
+	// OK
 	@GetMapping("/order/order-details/{id}")
-	public String getProductDetail(@PathVariable(value = "id")long id, Model model) throws Exception {
+	public String getProductDetail(@PathVariable(value = "id") long id, Model model) throws Exception {
 		System.out.println("Hola: " + orderService.buscarOrden(id));
 		model.addAttribute("order", orderService.buscarOrden(id));
 		return "order-details";
 	}
-	
-	
-	
+
 	/*
-	if (arrayList != null && !arrayList.isEmpty()) {
-		  T item = arrayList.get(arrayList.size()-1);
-		}*/
+	 * if (arrayList != null && !arrayList.isEmpty()) { T item =
+	 * arrayList.get(arrayList.size()-1); }
+	 */
 
 }
