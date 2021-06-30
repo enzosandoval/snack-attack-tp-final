@@ -1,2 +1,11 @@
 # snack-attack-tp-final
 Proyecto final de Programación Visual
+
+# Integrantes:
+- Enzo Aramayo
+- Gabriel Sardina
+- Gabriel Molina
+- Andres Chaile
+
+# Vista previa de la Home Page
+![InstantGif_2021 06 30-15 01](https://user-images.githubusercontent.com/60995996/124009523-1aafc680-d9b4-11eb-91e4-0c38ab166980.gif)
