@@ -46,7 +46,13 @@ public class CustomerController {
 	@Autowired
 	private IEmployeeService employeeService;
 
-	@GetMapping("/customers")
+	/**
+	 * @GetMapping("/customers")
+	 * @param params
+	 * @param model
+	 * @param keyword
+	 * @return devuelve la pagina de clientes en formato de tabla y funciones de CRUD
+	 */
 	public String getCustomersPage(@RequestParam Map<String, Object> params, Model model, @Param("keyword") String keyword) {
 		int page = params.get("page") != null ? Integer.valueOf(params.get("page").toString()) - 1 : 0;
 		PageRequest pageRequest = PageRequest.of(page, 10);
@@ -71,7 +77,13 @@ public class CustomerController {
 		return "customer-crud";
 	}
 
-	@GetMapping("/customer/edit/{id}")
+	/**
+	 * @GetMapping("/customer/edit/{id}")
+	 * @param id
+	 * @param model
+	 * @return Devuelve una página como un formulario para editar campos de un cliente
+	 * @throws Exception
+	 */
 	public String getEditCustomerPage(@PathVariable(value = "id") long id, Model model) throws Exception {
 		customer = customerService.buscarCliente(id);
 		model.addAttribute("customer", customer);
@@ -82,7 +94,12 @@ public class CustomerController {
 		return "customer-edit";
 	}
 
-	@GetMapping("/customer/new")
+	/**
+	 * @GetMapping("/customer/new")
+	 * @param model
+	 * @return Devuelve una pagina con un formulario para dar de alta un nuevo cliente.
+	 * @throws Exception
+	 */
 	public String getNewCustomerPage(Model model) throws Exception {
 		customer = new Customer();
 		model.addAttribute("customer", customer);
@@ -90,7 +107,14 @@ public class CustomerController {
 		return "customer-edit";
 	}
 
-	@PostMapping(value = "/customer/save")
+	/**
+	 * @PostMapping(value = "/customer/save")
+	 * @param customer
+	 * @param result
+	 * @param model
+	 * @return Despues de guardar datos de un nuevo cliente devuelve la página de clientes en forma de tabla.Si los datos cargados son incorrectos vuelve a mostrar el formulario de nuevo cliente señalando los campos con datos invalidos.
+	 * @throws IOException
+	 */
 	public String getSaveCustomerAndRedirect(@Valid @ModelAttribute("customer") Customer customer, BindingResult result,
 			Model model) throws IOException {
 		if (result.hasErrors()) {
