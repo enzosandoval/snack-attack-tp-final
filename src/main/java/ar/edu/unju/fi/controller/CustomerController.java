@@ -53,6 +53,7 @@ public class CustomerController {
 	 * @param keyword
 	 * @return devuelve la pagina de clientes en formato de tabla y funciones de CRUD
 	 */
+	@GetMapping("/customers")
 	public String getCustomersPage(@RequestParam Map<String, Object> params, Model model, @Param("keyword") String keyword) {
 		int page = params.get("page") != null ? Integer.valueOf(params.get("page").toString()) - 1 : 0;
 		PageRequest pageRequest = PageRequest.of(page, 10);
@@ -84,6 +85,7 @@ public class CustomerController {
 	 * @return Devuelve una página como un formulario para editar campos de un cliente
 	 * @throws Exception
 	 */
+	@GetMapping("/customer/edit/{id}")
 	public String getEditCustomerPage(@PathVariable(value = "id") long id, Model model) throws Exception {
 		customer = customerService.buscarCliente(id);
 		model.addAttribute("customer", customer);
@@ -100,6 +102,7 @@ public class CustomerController {
 	 * @return Devuelve una pagina con un formulario para dar de alta un nuevo cliente.
 	 * @throws Exception
 	 */
+	@GetMapping("/customer/new")
 	public String getNewCustomerPage(Model model) throws Exception {
 		customer = new Customer();
 		model.addAttribute("customer", customer);
@@ -115,6 +118,7 @@ public class CustomerController {
 	 * @return Despues de guardar datos de un nuevo cliente devuelve la página de clientes en forma de tabla.Si los datos cargados son incorrectos vuelve a mostrar el formulario de nuevo cliente señalando los campos con datos invalidos.
 	 * @throws IOException
 	 */
+	@PostMapping(value = "/customer/save")
 	public String getSaveCustomerAndRedirect(@Valid @ModelAttribute("customer") Customer customer, BindingResult result,
 			Model model) throws IOException {
 		if (result.hasErrors()) {
