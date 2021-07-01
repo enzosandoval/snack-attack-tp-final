@@ -51,6 +51,13 @@ public class EmployeeController {
 	@Autowired
 	private IOfficeService officeService;
 
+	/**
+	 * 
+	 * @param params
+	 * @param model
+	 * @param keyword
+	 * @return devuelve la página de empleados en formato de tabla, con opciones de CRUD y función de busqueda para empleado
+	 */
 	@GetMapping("/employees")
 	public String getEmployeePage(@RequestParam Map<String, Object> params, Model model, @Param("keyword") String keyword) {
 		int page = params.get("page") != null ? Integer.valueOf(params.get("page").toString()) - 1 : 0;
@@ -76,6 +83,13 @@ public class EmployeeController {
 		return "employee-crud";
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @param model
+	 * @return devuelve la página con un formulario para poder editar datos de un empleado
+	 * @throws Exception
+	 */
 	@GetMapping("/employee/edit/{id}")
 	public String getEditEmployeePage(@PathVariable(value = "id") long id, Model model) throws Exception {
 		employee = employeeService.buscarEmpleado(id);
@@ -87,6 +101,12 @@ public class EmployeeController {
 		return "employee-edit";
 	}
 
+	/**
+	 * 
+	 * @param model
+	 * @return devuelve una página con un formulario para dar de alta un nuevo empleado.
+	 * @throws Exception
+	 */
 	@GetMapping("/employee/new")
 	public String getNewEmployeePage(Model model) throws Exception {
 		employee = new Employee();
@@ -96,6 +116,14 @@ public class EmployeeController {
 		return "employee-edit";
 	}
 
+	/**
+	 * 
+	 * @param employee
+	 * @param result
+	 * @param model
+	 * @return Si los datos cargados de un empleado en el formulario de alta son válidos, devuelve la pagina de lista de empleado. Caso contrario devuelve la página con el formulario de alta, señalando los campos con datos invalidos.
+	 * @throws Exception
+	 */
 	@PostMapping(value = "/employee/save")
 	public String getSaveemployeeAndRedirect(@Valid @ModelAttribute("employee") Employee employee, BindingResult result,
 			Model model) throws Exception {
@@ -121,6 +149,11 @@ public class EmployeeController {
 		}
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return Si se produce la eliminación de un empleado, redirige a la página de empleados.
+	 */
 	@GetMapping(value = "/employee/delete/{id}")
 	public String delete(@PathVariable(value = "id") long id) {
 		employeeService.borrar(id);

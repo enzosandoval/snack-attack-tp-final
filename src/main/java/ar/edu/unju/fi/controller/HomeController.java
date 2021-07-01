@@ -21,6 +21,12 @@ public class HomeController {
 	@Autowired
 	private IProductLinesService productLinesService;
 
+	/**
+	 * 
+	 * @param model
+	 * @return Devuelve la página de inicio
+	 * @throws Exception
+	 */
 	@GetMapping("/")
 	public String getHomePage(Model model) throws Exception {
 		// ✨ Nombre de las Categorias 👇
@@ -32,6 +38,13 @@ public class HomeController {
 		return "home";
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @param model
+	 * @return devuelve la página con la categoria de productos
+	 * @throws Exception
+	 */
 	@GetMapping("/search/{category}")
 	public String getCategoryPage(@PathVariable(value = "category") String id, Model model) throws Exception {
 		model.addAttribute("categoria", productLinesService.buscarLineaDeProducto(id));
@@ -39,6 +52,10 @@ public class HomeController {
 		return "category";
 	}
 
+	/**
+	 * 
+	 * @return devuelve la página de terminos y condiciones de la empresa
+	 */
 	@GetMapping("/terms-and-conditions")
 	public String getTermsAndConditionsPage() {
 		return "terms-and-conditions";

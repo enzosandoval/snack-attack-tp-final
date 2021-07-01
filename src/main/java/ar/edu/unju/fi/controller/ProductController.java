@@ -182,6 +182,13 @@ public class ProductController {
 	}
 
 	// Producto - Detalle del Producto
+	/**
+	 * 
+	 * @param id
+	 * @param model
+	 * @return devuelve la página con detalles del producto
+	 * @throws Exception
+	 */
 	@GetMapping("/products/details/{id}")
 	public String getProductDetail(@PathVariable(value = "id") String id, Model model) throws Exception {
 		// int productDetail = new productDetail();
@@ -189,6 +196,12 @@ public class ProductController {
 		return "product-details";
 	}
 	
+	/**
+	 * 
+	 * @param model
+	 * @return Devuelve una página con una lista de productos
+	 * @throws Exception
+	 */
 	@GetMapping("/products/list")
 	public String getProductsListPage(Model model) throws Exception {
 		model.addAttribute("productos", productService.obtenerProductos());
